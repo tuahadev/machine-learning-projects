@@ -1,0 +1,85 @@
+# 📦 Order Prediction using LightGBM
+
+This project uses machine learning to predict the number of orders a store might receive, based on features like discount, store type, location, and sales. A LightGBM regressor was trained after cleaning and selecting features from a real-world retail dataset.
+
+---
+
+## 📊 Dataset
+
+- **Source:** [Aman Kharwal - GitHub](https://github.com/amankharwal/Website-data)
+- **File:** `supplement.csv`
+- **Target Variable:** `#Order` (number of orders per record)
+- **Features Used:**
+  - `Discount`
+  - `Store_Type`
+  - `Location_Type`
+  - `Sales` (later dropped due to low mutual information)
+
+---
+
+## 🛠️ Tools & Libraries
+
+- Python 🐍
+- Pandas / NumPy
+- Matplotlib / Seaborn
+- Scikit-learn
+- LightGBM
+- SelectKBest (feature selection)
+- Mutual Information
+
+---
+
+## 🧹 Steps Performed
+
+1. **Data Loading & Cleaning**
+   - Removed irrelevant columns like `ID`, `Date`
+   - Checked for nulls, inspected data types
+
+2. **Visualization**
+   - Pie charts for discount and store type distribution
+   - Bar plot of mutual information scores
+
+3. **Encoding**
+   - Label Encoding for categorical features
+
+4. **Feature Selection**
+   - Used `mutual_info_classif` and `SelectKBest` to select top 3 features
+
+5. **Model Training**
+   - Used `LightGBMRegressor`
+   - Split data using `train_test_split`
+
+6. **Evaluation**
+   - Mean Absolute Error (MAE)
+   - Mean Squared Error (MSE)
+   - R² Score
+
+7. **Error Analysis**
+   - Residual plot
+   - Predicted vs Actual scatter plot
+
+---
+
+## 📈 Results
+
+| Metric | Value |
+|--------|-------|
+| MAE    | ~13.11 |
+| MSE    | ~349.24 |
+| R²     | ~0.625 |
+
+The model explains approximately **61.5% of the variance** in order quantity.
+
+---
+
+## 📌 Future Improvements
+
+- Add time-based features from the `Date` column
+- Hyperparameter tuning (e.g., with `GridSearchCV`)
+- Try alternative models: `XGBoost`, `RandomForest`
+- Integrate basic MLOps: model saving, Streamlit dashboard
+
+---
+
+## 📁 Project Structure
+
