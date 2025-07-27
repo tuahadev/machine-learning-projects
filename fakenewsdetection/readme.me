@@ -1,0 +1,144 @@
+
+# 📰 Fake News Detection using Deep Learning (Keras)
+
+This project implements a Fake News Classifier using a deep learning model built with **Keras**. It leverages **TF-IDF vectorization** for feature extraction and a **fully connected neural network (Dense layers)** for classification.
+
+---
+
+## 📂 Project Structure
+
+```
+├── fakenews.ipynb           # Main Jupyter Notebook
+├── fake_news_model.h5       # Saved Keras model
+├── tfidf_vectorizer.pkl     # Saved TF-IDF vectorizer
+├── README.md                # Project description (this file)
+├── real_fake_examples.csv   # Example inputs (optional)
+```
+
+---
+
+## 📊 Dataset
+
+We use the popular **Fake and Real News Dataset** which contains:
+- News `title`, `text`, and `label` columns
+- Binary labels: `FAKE` = 0, `REAL` = 1
+
+You can load it as:
+
+```python
+import pandas as pd
+df = pd.read_csv("news.csv")
+```
+
+---
+
+## 🛠️ Model Pipeline
+
+1. **Preprocessing**
+   - Lowercase text
+   - Remove stopwords
+   - Token cleaning (optional)
+
+2. **Feature Extraction**
+   - Use `TfidfVectorizer` with `max_features=5000`
+   - Converts text into numerical vector form
+
+3. **Model Architecture**
+   ```python
+   model = Sequential([
+       Dense(256, activation='relu', input_shape=(5000,)),
+       Dropout(0.4),
+       Dense(64, activation='relu'),
+       Dense(1, activation='sigmoid')
+   ])
+   ```
+
+4. **Training**
+   - Loss: `binary_crossentropy`
+   - Optimizer: `adam`
+   - Metrics: `accuracy`
+
+---
+
+## ✅ Evaluation Results
+
+```
+Classification Report:
+
+              precision    recall  f1-score   support
+        REAL       0.94      0.93      0.93       628
+        FAKE       0.93      0.94      0.93       639
+
+    accuracy                           0.93      1267
+```
+
+✅ The model achieves **93% accuracy**, with balanced performance on both classes.
+
+---
+
+## 🧪 Predicting Custom News
+
+To predict new news text:
+
+```python
+import pickle
+from tensorflow.keras.models import load_model
+
+# Load model and vectorizer
+model = load_model("fake_news_model.h5")
+vectorizer = pickle.load(open("tfidf_vectorizer.pkl", "rb"))
+
+def predict_news(text):
+    tfidf = vectorizer.transform([text]).toarray()
+    prediction = model.predict(tfidf)[0][0]
+    return "REAL" if prediction > 0.5 else "FAKE"
+```
+
+---
+
+## 🚀 Deployment (Optional)
+
+Deploy your model as a web app using [Streamlit](https://streamlit.io):
+
+```bash
+pip install streamlit
+streamlit run app.py
+```
+
+---
+
+## 📌 Examples
+
+### 🔎 Real News
+> "NASA’s Artemis I mission successfully completed its 25-day journey around the Moon."
+
+✅ Should be classified as **REAL**
+
+### ❌ Fake News
+> "NASA confirms Earth will be in total darkness for 15 days due to planetary alignment."
+
+🚫 Should be classified as **FAKE**
+
+---
+
+## 📚 Requirements
+
+```bash
+tensorflow
+sklearn
+numpy
+pandas
+matplotlib
+streamlit (optional)
+```
+
+---
+
+## ✍️ Author
+
+**Syed Tuaha Ahmed**  
+Email: [ataha7888@gmail.com](mailto:ataha7888@gmail.com)
+
+---
+
+]
