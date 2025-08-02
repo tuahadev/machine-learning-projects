@@ -1,0 +1,55 @@
+
+# 🚚 Food Delivery Time Prediction
+
+This project uses machine learning to predict the estimated food delivery time based on delivery partner attributes and travel distance. It applies neural networks and includes exploratory data analysis, feature engineering, and model training using TensorFlow/Keras.
+
+## 📁 Dataset Features
+
+The dataset includes:
+- `Delivery_person_Age`
+- `Delivery_person_Ratings`
+- `Type_of_order`
+- `Type_of_vehicle`
+- `Latitude/Longitude` of restaurant and customer
+- `Time_taken(min)` (target variable)
+
+## 🧹 Preprocessing
+
+- Dropped irrelevant columns (`ID`, `Delivery_person_ID`)
+- One-hot encoded categorical features (`Type_of_order`, `Type_of_vehicle`)
+- Calculated `Distance_km` using Haversine formula
+- Used `mutual_info_classif` to assess feature importance
+
+## 📊 Exploratory Data Analysis
+
+- Visualized relationship between distance and time taken
+- Investigated categorical order types using Seaborn plots
+
+## 🧠 Model
+
+A dense neural network was used with:
+- Input: Delivery partner age, ratings, and distance
+- Layers: Dense layers with ReLU activation
+- Output: Single neuron predicting delivery time in minutes
+- Loss: Mean Absolute Error (MAE)
+- Optimization: EarlyStopping callback to prevent overfitting
+
+## 🛠️ Prediction Example
+
+```python
+Age = 30
+Rating = 4.5
+Distance = 5.2
+
+features = np.array([[Age, Rating, Distance]])
+predicted_time = model.predict(features)
+```
+
+## 📉 Results
+
+The model showed consistent improvement in MAE across epochs and generalized well on unseen data.
+
+
+## 📌 Status
+
+✅ Completed training and predictions. Ready for deployment enhancements.
