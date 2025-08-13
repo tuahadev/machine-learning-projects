@@ -1,0 +1,56 @@
+# ❤️ Heart Disease Prediction App (KNN Model)
+
+This project is a **Machine Learning-based web application** that predicts the risk of heart disease based on patient health parameters.  
+The app is built with **Streamlit** and uses a pre-trained **K-Nearest Neighbors (KNN)** model for predictions.
+
+---
+
+## 📊 Model Performance
+
+| Metric                | Value   |
+|-----------------------|---------|
+| **Algorithm**         | K-Nearest Neighbors (KNN) |
+| **Best K**            | 9 (determined via 10-fold CV over K=1 to 20) |
+| **Training Accuracy** | **74.4%** |
+| **Test Accuracy**     | **80.2%** |
+
+---
+
+## 📌 Features
+- Predicts **High Risk** or **Low Risk** of heart disease.
+- Shows **probability score** for better interpretability.
+- User-friendly interface with input validation.
+- Works instantly — no retraining required.
+- Supports scaling of features to ensure accurate predictions.
+
+---
+
+---
+
+## 🧠 Model Information
+- **Dataset:** [UCI Heart Disease Dataset](https://archive.ics.uci.edu/ml/datasets/heart+Disease)  
+- **Algorithm:** **K-Nearest Neighbors (KNN)**
+- **Hyperparameter tuning:** 10-fold Cross-Validation, K values from 1 to 20.
+- **Best K:** 9
+- **Features Used:**
+  - `age` – Age of the patient
+  - `sex` – Gender (1 = Male, 0 = Female)
+  - `cp` – Chest pain type (0–3)
+  - `trestbps` – Resting blood pressure (mm Hg)
+  - `chol` – Serum cholesterol (mg/dl)
+  - `thalach` – Maximum heart rate achieved
+  - `oldpeak` – ST depression induced by exercise
+  - `slope` – Slope of the peak exercise ST segment
+  - `ca` – Number of major vessels (0–3)
+  - `thal` – Thalassemia (0–2)
+- **Target Variable:** `target` (1 = Heart disease present, 0 = Not present)
+- **Preprocessing:** StandardScaler applied to numeric features.
+
+---
+
+## 🚀 Installation & Usage
+### 1️⃣ Clone the repository
+```bash
+git clone https://github.com/your-username/heart-disease-prediction.git
+cd heart-disease-prediction
+
