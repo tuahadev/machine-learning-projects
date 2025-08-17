@@ -1,0 +1,106 @@
+# 🛡️ Hate Speech Detection using LSTM  
+
+## 📌 Project Overview  
+This project is a **deep learning model** that detects hate speech and offensive language in text. It uses **LSTM (Long Short-Term Memory)** networks to classify tweets into three categories:  
+
+- **0 → Hate Speech**  
+- **1 → Offensive Language**  
+- **2 → Neither**  
+
+The dataset used is `labeled_data.csv`, which contains tweets annotated with these categories.  
+
+---
+
+## ⚙️ Features  
+- Data cleaning: removes URLs, mentions, hashtags, punctuation, and lowercases text.  
+- Tokenization & Padding with TensorFlow’s `Tokenizer`.  
+- Deep learning model built with **Embedding + LSTM + Dropout + Dense(Softmax)**.  
+- Trained with **80/20 train-test split**.  
+- Achieved **~91% validation accuracy** in early epochs.  
+
+---
+
+## 📂 Project Structure  
+```
+├── hateneural.ipynb   # Main Jupyter Notebook  
+├── labeled_data.csv   # Dataset (not included here)  
+├── README.md          # Project documentation  
+```
+
+## 🧑‍💻 Model Training  
+The LSTM model is defined as:  
+```python
+model = Sequential()
+model.add(Embedding(input_dim=10000, output_dim=64, input_shape=(100,)))
+model.add(LSTM(64))
+model.add(Dropout(0.5))
+model.add(Dense(3, activation='softmax'))
+```
+
+Compiled with:  
+```python
+model.compile(loss='sparse_categorical_crossentropy',
+              optimizer='adam',
+              metrics=['accuracy'])
+```
+
+Training:
+```python
+history = model.fit(x_train, y_train,
+                    epochs=10,
+                    batch_size=32,
+                    validation_data=(x_test, y_test))
+```
+
+---
+
+## 📊 Results (Sample Logs)  
+```
+Epoch 1/10 - loss: 0.5689 - accuracy: 0.8064 - val_loss: 0.2778 - val_accuracy: 0.9082
+Epoch 2/10 - loss: 0.2352 - accuracy: 0.9210 - val_loss: 0.2669 - val_accuracy: 0.9047
+Epoch 3/10 - loss: 0.1641 - accuracy: 0.9445 - val_loss: 0.3141 - val_accuracy: 0.9047
+Epoch 4/10 - loss: 0.1139 - accuracy: 0.9617 - val_loss: 0.3824 - val_accuracy: 0.8865
+```
+
+- **Best Validation Accuracy:** ~91%  
+- Signs of **overfitting** after 2–3 epochs.  
+
+---
+
+## 🧪 Evaluation  
+Beyond accuracy, classification metrics should be checked:  
+```python
+from sklearn.metrics import classification_report
+y_pred = model.predict(x_test).argmax(axis=1)
+print(classification_report(y_test, y_pred))
+```
+
+---
+
+## 🔮 Prediction Example  
+```python
+def predict_tweet(text):
+    seq = tokenizer.texts_to_sequences([clean(text)])
+    padded = pad_sequences(seq, maxlen=100)
+    pred = model.predict(padded).argmax(axis=1)[0]
+    labels = {0:"Hate Speech", 1:"Offensive", 2:"Neither"}
+    return labels[pred]
+
+print(predict_tweet("I hate all of you"))
+# Output: Hate Speech
+```
+
+---
+
+## 📌 Future Improvements  
+- Use **Bidirectional LSTM / GRU** for better context understanding.  
+- Apply **class weighting / oversampling** to handle imbalanced data.  
+- Add **EarlyStopping & ModelCheckpoint** callbacks.  
+- Deploy the model via **Streamlit or Flask API** for real-world usage.  
+
+---
+
+## 👨‍💻 Author  
+- **Syed Tuaha Ahmed**  
+- 📧 Email: ataha7888@gmail.com  
+- 🌐 GitHub: [tuahadev](https://github.com/tuahadev/machine-learning-projects)  
